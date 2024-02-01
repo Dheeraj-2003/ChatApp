@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:chat_app/models/chat_user.dart';
 import 'package:chat_app/widgets/chat_list.dart';
 import 'package:chat_app/widgets/drawer.dart';
@@ -88,8 +90,10 @@ class _StreamChatState extends State<StreamChat> {
           actions: [
             ElevatedButton(
               onPressed: () {
-                _onAddChat(); // Close the dialog
-                Navigator.of(context).pop();
+                if (controller.text.isNotEmpty) {
+                  _onAddChat(); // Close the dialog
+                  Navigator.of(context).pop();
+                }
               },
               child: const Text('Add'),
             ),

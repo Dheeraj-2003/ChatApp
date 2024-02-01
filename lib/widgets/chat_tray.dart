@@ -19,6 +19,8 @@ class ChatTray extends StatelessWidget {
       child: SizedBox(
         width: 400,
         child: Card(
+          borderOnForeground: false,
+          surfaceTintColor: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
@@ -28,12 +30,13 @@ class ChatTray extends StatelessWidget {
                     backgroundImage: NetworkImage(friend.imageUrl),
                   ),
                 const SizedBox(
-                  width: 10,
+                  width: 20,
                 ),
                 Text(
                   friend.name,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontSize: 23),
                 )
               ],
             ),

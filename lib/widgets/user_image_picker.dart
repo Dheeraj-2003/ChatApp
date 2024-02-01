@@ -17,9 +17,42 @@ class UserImagePicker extends StatefulWidget {
 class _UserImagePickerState extends State<UserImagePicker> {
   File? _pickedImageFile;
 
+  ImageSource? source;
+
   void _pickImage() async {
-    final pickImage = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 150);
+    await showDialog<ImageSource>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Pick Image Source'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.camera),
+                    title: const Text('Camera'),
+                    onTap: () {
+                      source = ImageSource.camera;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Gallery'),
+                    onTap: () {
+                      source = ImageSource.gallery;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+    if (source == null) return;
+    final imagePicker = ImagePicker();
+    final pickImage = await imagePicker.pickImage(
+        source: source!, imageQuality: 100, maxWidth: 150);
 
     if (pickImage == null) return;
 

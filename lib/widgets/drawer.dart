@@ -1,5 +1,4 @@
 import 'package:chat_app/screens/alternate_chat2.dart';
-import 'package:chat_app/screens/chat.dart';
 import 'package:chat_app/screens/friends_screen.dart';
 import 'package:chat_app/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +68,8 @@ class AppDrawer extends StatelessWidget {
         ),
         ListTile(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SettingsScreen()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SettingsScreen()));
           },
           title: Text(
             'Settings',

@@ -1,90 +1,34 @@
-import 'package:chat_app/screens/sign_in.dart';
+import 'package:chat_app/models/chat_user.dart';
+import 'package:chat_app/screens/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class SettingsScreen extends ConsumerWidget {
+  SettingsScreen({super.key});
+
+  final userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
-  State<SettingsScreen> createState() {
-    return _SettingsScreenState();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .where('id', isEqualTo: userId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (ctx) => SignInScreen()),
-                );
-              })
-        ],
-      ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Card(
-          margin: const EdgeInsets.all(10),
-          child: Container(
-            height: 300,
-            width: double.infinity,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('lib\\images\\user (1).png'),
-                  backgroundColor: Theme.of(context).colorScheme.background,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Event Host Name',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontSize: 30),
-                )
-              ],
-            ),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: SizedBox(
-              width: 20,
-            ),
-            titleAlignment: ListTileTitleAlignment.center,
-            title: Text(
-              'My Profile',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.primary, fontSize: 25),
-            ),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: SizedBox(
-              width: 20,
-            ),
-            titleAlignment: ListTileTitleAlignment.center,
-            title: Text(
-              'Events',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.primary, fontSize: 25),
-            ),
-          ),
-        ),
-      ]),
-    );
+          final doc = snapshot.data!.docs[0].data();
+          return ProfileView(
+              ChatUser(
+                  name: doc['username'],
+                  number: doc['number'],
+                  imageUrl: doc['image_url']),
+              true);
+        });
   }
 }

@@ -7,6 +7,46 @@ class ChatMessages extends StatelessWidget {
   const ChatMessages(this.chat, {super.key});
 
   final Chat chat;
+  void _showAlertDialog(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Delete',
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: Theme.of(context).colorScheme.primary),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _deleteMessage(id);
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _deleteMessage(String id) {
+    FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chat.chatId)
+        .collection('messages')
+        .doc(id)
+        .delete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,27 +91,32 @@ class ChatMessages extends StatelessWidget {
               itemBuilder: (ctx, idx) {
                 final currentUser = FirebaseAuth.instance.currentUser!.uid;
                 final sender = loadedMessages[idx].data()['userId'];
-                return Align(
-                  alignment: sender == currentUser
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Card(
-                      color: sender == currentUser
-                          ? Theme.of(context).colorScheme.secondaryContainer
-                          : Theme.of(context).colorScheme.surface,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          loadedMessages[idx].data()['text'],
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer),
-                        ),
-                      )),
+                return InkWell(
+                  onLongPress: () {
+                    _showAlertDialog(context, loadedMessages[idx].id);
+                  },
+                  child: Align(
+                    alignment: sender == currentUser
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Card(
+                        color: sender == currentUser
+                            ? Theme.of(context).colorScheme.secondaryContainer
+                            : Theme.of(context).colorScheme.surface,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            loadedMessages[idx].data()['text'],
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer),
+                          ),
+                        )),
+                  ),
                 );
               });
         });

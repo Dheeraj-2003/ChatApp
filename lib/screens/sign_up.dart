@@ -119,14 +119,14 @@ class _SignUpScreen extends State<SignUpScreen> {
           children: [
             CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.background,
-              radius: 90,
+              radius: 80,
               backgroundImage: AssetImage('lib/images/ticket-2974645_1280.jpg'),
             ),
             Card(
-              margin: const EdgeInsets.all(20),
+              margin: const EdgeInsets.all(10),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
                   child: Form(
                     key: _formKey,
                     child: Column(

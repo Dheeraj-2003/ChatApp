@@ -24,16 +24,22 @@ class _SignInScreen extends State<SignInScreen> {
 
   void _submit() async {
     if (_formKey.currentState!.validate()) {
-      _isLogging = true;
+      setState(() {
+        _isLogging = true;
+      });
       _formKey.currentState!.save();
       try {
         await _firebase.signInWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
-        _isLogging = false;
+        setState(() {
+          _isLogging = false;
+        });
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (ctx) => const StreamChat()));
       } on FirebaseAuthException catch (err) {
-        _isLogging = false;
+        setState(() {
+          _isLogging = false;
+        });
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(err.message ?? 'Authentication Failed!')));
