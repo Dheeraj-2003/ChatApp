@@ -24,7 +24,13 @@ class _UserImagePickerState extends State<UserImagePicker> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Pick Image Source'),
+            title: Text(
+              'Pick Image Source',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onBackground),
+            ),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -52,7 +58,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
     if (source == null) return;
     final imagePicker = ImagePicker();
     final pickImage = await imagePicker.pickImage(
-        source: source!, imageQuality: 100, maxWidth: 150);
+        source: source!, imageQuality: 80, maxWidth: 300);
 
     if (pickImage == null) return;
 

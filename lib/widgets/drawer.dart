@@ -1,5 +1,4 @@
 import 'package:chat_app/screens/alternate_chat2.dart';
-import 'package:chat_app/screens/friends_screen.dart';
 import 'package:chat_app/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -52,19 +51,6 @@ class AppDrawer extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onBackground),
           ),
           leading: const Icon(Icons.home),
-        ),
-        ListTile(
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) => FriendsScreen()));
-          },
-          title: Text(
-            'Friends',
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                fontSize: 20,
-                color: Theme.of(context).colorScheme.onBackground),
-          ),
-          leading: const Icon(Icons.people),
         ),
         ListTile(
           onTap: () {

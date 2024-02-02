@@ -1,4 +1,5 @@
 import 'package:chat_app/models/chat.dart';
+import 'package:chat_app/widgets/image_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -103,19 +104,35 @@ class ChatMessages extends StatelessWidget {
                         color: sender == currentUser
                             ? Theme.of(context).colorScheme.secondaryContainer
                             : Theme.of(context).colorScheme.surface,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            loadedMessages[idx].data()['text'],
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer),
-                          ),
-                        )),
+                        child: loadedMessages[idx].data()['text'] != null
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 10),
+                                child: Text(
+                                  loadedMessages[idx].data()['text'],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer),
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => ImageView(
+                                          image: loadedMessages[idx]
+                                              .data()['image'])));
+                                },
+                                child: Image.network(
+                                  loadedMessages[idx].data()['image'],
+                                  width: 200,
+                                  height: 300,
+                                  fit: BoxFit.contain,
+                                ),
+                              )),
                   ),
                 );
               });

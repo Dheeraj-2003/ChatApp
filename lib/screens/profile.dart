@@ -1,6 +1,7 @@
 import 'package:chat_app/models/chat_user.dart';
 import 'package:chat_app/screens/edit_screen.dart';
 import 'package:chat_app/screens/sign_in.dart';
+import 'package:chat_app/widgets/image_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,10 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(user.name),
+          title: Text(
+            user.name,
+            softWrap: true,
+          ),
           actions: [
             if (me)
               TextButton.icon(
@@ -41,9 +45,16 @@ class ProfileView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(
-                    radius: 180,
-                    backgroundImage: NetworkImage(user.imageUrl),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (builder) =>
+                              ImageView(image: user.imageUrl)));
+                    },
+                    child: CircleAvatar(
+                      radius: 180,
+                      backgroundImage: NetworkImage(user.imageUrl),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Row(

@@ -47,7 +47,6 @@ class _SignUpScreen extends State<SignUpScreen> {
         .collection('users')
         .where('number', isEqualTo: _userNum)
         .get();
-    print('kya dikkat bhaiii : ${query.docs.length}');
     if (query.docs.isNotEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -69,7 +68,6 @@ class _SignUpScreen extends State<SignUpScreen> {
           .ref()
           .child('user_images')
           .child('${userCredentials.user!.uid}.jpg');
-      print(storageRef);
       await storageRef.putFile(_pickedImage!);
       final imageUrl = await storageRef.getDownloadURL();
 
@@ -120,7 +118,8 @@ class _SignUpScreen extends State<SignUpScreen> {
             CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.background,
               radius: 80,
-              backgroundImage: AssetImage('lib/images/ticket-2974645_1280.jpg'),
+              backgroundImage:
+                  const AssetImage('lib/images/ticket-2974645_1280.jpg'),
             ),
             Card(
               margin: const EdgeInsets.all(10),

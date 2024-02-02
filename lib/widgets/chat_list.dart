@@ -10,42 +10,6 @@ class ChatList extends StatelessWidget {
 
   final String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
-  void _showAlertDialog(BuildContext context, String id) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Confirm Delete',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _deleteChat(id);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _deleteChat(String id) {
-    FirebaseFirestore.instance.collection('chats').doc(id).delete();
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -92,11 +56,7 @@ class ChatList extends StatelessWidget {
                         imageUrl: data['userImages'][1]);
                 Chat chat = Chat(
                     chatId: data['chatId'], user1: currentUser, user2: friend);
-                return InkWell(
-                    onTap: () {
-                      _showAlertDialog(context, chat.chatId);
-                    },
-                    child: ChatTray(chat, friend));
+                return ChatTray(chat, friend);
               });
         });
   }

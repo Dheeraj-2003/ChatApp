@@ -18,8 +18,9 @@ class SettingsScreen extends ConsumerWidget {
             .where('id', isEqualTo: userId)
             .snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
           }
 
           final doc = snapshot.data!.docs[0].data();

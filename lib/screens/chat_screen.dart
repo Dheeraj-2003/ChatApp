@@ -73,7 +73,10 @@ class _ChatScreenIndState extends State<ChatScreenInd> {
               backgroundImage: NetworkImage(widget.friend.imageUrl),
             ),
             const SizedBox(width: 10),
-            Text(widget.friend.name),
+            Text(
+              widget.friend.name,
+              softWrap: true,
+            ),
           ],
         ),
         actions: [

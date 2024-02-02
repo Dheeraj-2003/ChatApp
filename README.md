@@ -1,15 +1,16 @@
-# Chat App
+# chat_app
 
-As the name suggested this app provides a real-time chatting enviroments for your friends.
+A new Flutter project.
 
-# Some picture of the demo app
+## Getting Started
 
-<div align="center">
-  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-01-31_22-53-17.jpg" alt="Sign up Screen" width="300" />
-  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-01-31_22-53-12.jpg" alt="Chats Screen" width="300" />
-</div>
+This project is a starting point for a Flutter application.
 
-<div align="center">
-  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-01-31_22-53-41.jpg" alt="Drawer Screen" width="300" />
-  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-01-31_22-53-07.jpg" alt="Message Screen" width="300" />
-</div>
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

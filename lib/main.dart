@@ -1,6 +1,4 @@
-import 'package:chat_app/screens/alternate_chat.dart';
 import 'package:chat_app/screens/alternate_chat2.dart';
-import 'package:chat_app/screens/chat.dart';
 import 'package:chat_app/screens/sign_up.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
