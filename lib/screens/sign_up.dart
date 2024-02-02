@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-import 'package:chat_app/screens/alternate_chat2.dart';
 import 'package:chat_app/screens/sign_in.dart';
+import 'package:chat_app/screens/tab_screen.dart';
 import 'package:chat_app/widgets/user_image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,16 +63,14 @@ class _SignUpScreen extends State<SignUpScreen> {
       });
       final userCredentials = await _firebase.createUserWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
+      final userId = FirebaseAuth.instance.currentUser!.uid;
 
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('user_images')
-          .child('${userCredentials.user!.uid}.jpg');
+          .child('$userId.jpg');
       await storageRef.putFile(_pickedImage!);
       final imageUrl = await storageRef.getDownloadURL();
-
-      final user = FirebaseAuth.instance.currentUser;
-      final userId = user!.uid;
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -90,7 +88,7 @@ class _SignUpScreen extends State<SignUpScreen> {
       });
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => const StreamChat()));
+          MaterialPageRoute(builder: (ctx) => const TabsScreen()));
     } on FirebaseAuthException catch (err) {
       setState(() {
         _isUploading = false;

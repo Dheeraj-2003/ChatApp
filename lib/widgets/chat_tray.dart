@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatTray extends StatelessWidget {
-  ChatTray(this.chat, this.friend, {super.key});
+  const ChatTray(this.chat, this.friend, {super.key});
 
   final Chat chat;
   final ChatUser friend;
@@ -58,27 +58,36 @@ class ChatTray extends StatelessWidget {
       },
       child: SizedBox(
         width: 400,
-        child: Card(
-          borderOnForeground: false,
-          surfaceTintColor: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                if (friend.imageUrl != 'imageUrl')
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(friend.imageUrl),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.symmetric(
+                  vertical: BorderSide(color: Colors.white.withOpacity(0.1))),
+              borderRadius: BorderRadius.circular(20)),
+          child: Card(
+            color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.transparent
+                : null,
+            borderOnForeground: false,
+            surfaceTintColor: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  if (friend.imageUrl != 'imageUrl')
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(friend.imageUrl),
+                    ),
+                  const SizedBox(
+                    width: 20,
                   ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  friend.name,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontSize: 23),
-                )
-              ],
+                  Text(
+                    friend.name,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 23),
+                  )
+                ],
+              ),
             ),
           ),
         ),

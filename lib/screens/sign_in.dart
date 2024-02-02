@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:chat_app/screens/alternate_chat2.dart';
 import 'package:chat_app/screens/sign_up.dart';
+import 'package:chat_app/screens/tab_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +34,7 @@ class _SignInScreen extends State<SignInScreen> {
           _isLogging = false;
         });
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (ctx) => const StreamChat()));
+            MaterialPageRoute(builder: (ctx) => const TabsScreen()));
       } on FirebaseAuthException catch (err) {
         setState(() {
           _isLogging = false;

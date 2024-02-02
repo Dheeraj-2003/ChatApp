@@ -1,5 +1,5 @@
-import 'package:chat_app/screens/alternate_chat2.dart';
 import 'package:chat_app/screens/sign_up.dart';
+import 'package:chat_app/screens/tab_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,32 +8,22 @@ import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
 final theme = ThemeData.light().copyWith(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color.fromARGB(255, 32, 69, 163),
-    ),
-    textTheme: GoogleFonts.ubuntuTextTheme().copyWith(),
-    scaffoldBackgroundColor: ColorScheme.fromSeed(
-      seedColor: const Color.fromARGB(255, 32, 69, 163),
-    ).primaryContainer,
-    appBarTheme: AppBarTheme(
-      color: ColorScheme.fromSeed(
-        seedColor: const Color.fromARGB(255, 17, 132, 234),
-      ).primary.withOpacity(0.7),
-    ),
-    bottomSheetTheme: BottomSheetThemeData(
-      backgroundColor: ColorScheme.fromSeed(
-        seedColor: const Color.fromARGB(255, 17, 132, 234),
-      ).primary.withOpacity(0.4),
-    ));
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: const Color.fromARGB(255, 190, 3, 3),
+  ),
+  textTheme: GoogleFonts.ubuntuTextTheme().copyWith(),
+);
 
 final darkTheme = ThemeData.dark().copyWith(
-    brightness: Brightness.dark,
-    colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color.fromARGB(176, 208, 4, 4),
-        brightness: Brightness.dark,
-        onBackground: Colors.white),
-    textTheme: GoogleFonts.ubuntuTextTheme(),
-    scaffoldBackgroundColor: Colors.black);
+  brightness: Brightness.dark,
+  colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color.fromARGB(156, 193, 3, 3),
+      brightness: Brightness.dark,
+      onBackground: Colors.white),
+  textTheme: GoogleFonts.ubuntuTextTheme(),
+  scaffoldBackgroundColor: Colors.black,
+  cardColor: Colors.transparent,
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +46,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       home: FirebaseAuth.instance.currentUser == null
           ? const SignUpScreen()
-          : const StreamChat(),
+          : const TabsScreen(),
     );
   }
 }

@@ -1,22 +1,23 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:chat_app/models/chat_user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:chat_app/screens/alternate_chat2.dart';
+import 'package:chat_app/screens/settings_screen.dart';
+import 'package:chat_app/screens/stream_chat.dart';
+import 'package:chat_app/widgets/bottom_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-final firestore = FirebaseFirestore.instance;
-
-class AlternateChat2 extends StatefulWidget {
-  const AlternateChat2({super.key});
+class TabsScreen extends StatefulWidget {
+  const TabsScreen({super.key});
 
   @override
-  State<AlternateChat2> createState() {
-    return _AlternateChat2State();
+  State<TabsScreen> createState() {
+    return _TabsScreenState();
   }
 }
 
-class _AlternateChat2State extends State<AlternateChat2> {
+class _TabsScreenState extends State<TabsScreen> {
+  int _selectedIndex = 0;
+
   final controller = TextEditingController();
   final myUserId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -101,23 +102,32 @@ class _AlternateChat2State extends State<AlternateChat2> {
     );
   }
 
+  void _onChange(int val) async {
+    setState(() {
+      _selectedIndex = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          ' Chats',
+          _selectedIndex == 0 ? ' Chats' : 'Settings',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              fontSize: 25, color: Theme.of(context).colorScheme.onBackground),
+              fontSize: 27, color: Theme.of(context).colorScheme.onBackground),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAlertDialog(context);
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: const Text('None'),
+      bottomNavigationBar: BottomNavigator(_onChange),
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                _showAlertDialog(context);
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
+      body: _selectedIndex == 0 ? const StreamChat() : const SettingsScreen(),
     );
   }
 }

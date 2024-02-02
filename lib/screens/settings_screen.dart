@@ -1,35 +1,44 @@
-import 'package:chat_app/models/chat_user.dart';
-import 'package:chat_app/screens/profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_app/screens/profile_screen.dart';
+import 'package:chat_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsScreen extends ConsumerWidget {
-  SettingsScreen({super.key});
-
-  final userId = FirebaseAuth.instance.currentUser!.uid;
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .where('id', isEqualTo: userId)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting ||
-              !snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          final doc = snapshot.data!.docs[0].data();
-          return ProfileView(
-              ChatUser(
-                  name: doc['username'],
-                  number: doc['number'],
-                  imageUrl: doc['image_url']),
-              true);
-        });
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => Profile()));
+            },
+            title: Text(
+              'Profile',
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: 22,
+                  color: Theme.of(context).colorScheme.onBackground),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.adb_outlined),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => const AppDrawer()));
+            },
+            title: Text(
+              'About',
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: 22,
+                  color: Theme.of(context).colorScheme.onBackground),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
