@@ -1,16 +1,11 @@
-# chat_app
+# Chat App
+A real-time chatting application made with flutter and firebase
 
-A new Flutter project.
+# Some Pictures of the Demo App
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div align="center">
+  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-02-20_14-27-14.jpg" alt="Sign up Screen" width="250" />
+  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-02-20_14-24-10.jpg" alt="Chat list Screen" width="250" />
+  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-02-20_14-24-17.jpg" alt="Chat Messages screen" width="250" />
+  <img src="https://github.com/Dheeraj-2003/ChatApp/blob/main/Demo%20pictures/photo_2024-02-20_14-24-24.jpg" alt="About" width="250" />
+</div>
