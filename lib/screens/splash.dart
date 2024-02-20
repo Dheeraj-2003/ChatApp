@@ -7,10 +7,10 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chats'),
+        title: const Text('Chats'),
       ),
-      drawer: Drawer(),
-      body: Center(
+      drawer: const Drawer(),
+      body: const Center(
         child: CircularProgressIndicator(),
       ),
     );
